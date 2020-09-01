@@ -59,12 +59,12 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 bot.sendMessage({
                     tts: true,
                     to: channelID,
-                    message: "É hora da daily. Pode começar, " + members[0]
+                    message: "É hora da daily. Pode começar, **" + members[0] + "**."
                 });
 
                 bot.sendMessage({
                     to: channelID,
-                    message: "\n**A ordem será: \n**" + members.join(",\n")
+                    message: "\n*A ordem será: \n*" + members.join(",\n")
                 })
                 break;
         }

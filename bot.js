@@ -22,7 +22,7 @@ var runDaily = function(channelID) {
 
     bot.sendMessage({
         to: channelID,
-        message: "\n*A ordem será:* \n" + members.join(",\n")
+        message: "\nA ordem será: \n" + members.join(",\n") + "\n **Fé em deus rapaziada. Só balãozada**"
     });
 }
 

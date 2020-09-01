@@ -28,7 +28,7 @@ var members = [
     "Vinicius",
     "Jean",
     "Naiguel",
-    "Vítor",
+    "Vitor",
     "Deborah",
     "Diane",
     "Camila",
@@ -64,7 +64,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
                 bot.sendMessage({
                     to: channelID,
-                    message: "\n**A ordem será: **" + members.join(",\n")
+                    message: "\n**A ordem será: \n**" + members.join(",\n")
                 })
                 break;
         }

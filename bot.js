@@ -1,8 +1,12 @@
 var Discord = require('discord.io');
+var dotenv = require('dotenv');
+dotenv.config();
 var logger = require('winston');
-var auth = require('./auth.json');
+var token = process.env.token;
+var members = JSON.parse(process.env.members);
 var cron = require("node-cron");
-var shuffleArray = function(array) {
+
+var shuffleArray = function (array) {
     for (var i = array.length - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * (i + 1));
         var temp = array[i];
@@ -11,7 +15,8 @@ var shuffleArray = function(array) {
     }
     return array;
 }
-var runDaily = function(channelID) {
+
+var runDaily = function (channelID) {
     members = shuffleArray(members);
 
     bot.sendMessage({
@@ -22,10 +27,9 @@ var runDaily = function(channelID) {
 
     bot.sendMessage({
         to: channelID,
-        message: "\nA ordem será: \n" + members.join(",\n") + "\n **Fé em deus rapaziada. Só balãozada**"
+        message: "\nA ordem será: \n" + members.join(",\n") + "\n**Fé em deus rapaziada. Só balãozada.**"
     });
 }
-
 // Configure logger settings
 logger.remove(logger.transports.Console);
 logger.add(new logger.transports.Console, {
@@ -35,32 +39,20 @@ logger.level = 'debug';
 
 // Initialize Discord Bot
 var bot = new Discord.Client({
-    token: auth.token,
+    token: token,
     autorun: true
 });
-
-var members = [
-    "Vinicius",
-    "Jean",
-    "Naiguel",
-    "Vitor",
-    "Deborah",
-    "Diane",
-    "Camila",
-    "João",
-    "José",
-    "Marcelo",
-    "Rodolfo",
-    "Henrique"
-];
 
 bot.on('ready', function (evt) {
     logger.info('Connected');
     logger.info('Logged in as: ');
     logger.info(bot.username + ' - (' + bot.id + ')');
-    cron.schedule("00 17 * * *", function() {
-        runDaily(743476427323605094);
-      });
+    cron.schedule("00 17 * * 1,3,4,5", function () {
+        runDaily("743476427323605094");
+    }, {
+        scheduled: true,
+        timezone: "America/Sao_Paulo"
+    });
 });
 
 bot.on('message', function (user, userID, channelID, message, evt) {
